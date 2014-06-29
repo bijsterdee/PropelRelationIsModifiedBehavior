@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="default" defaultIdMethod="native" namespace="RelationIsModifiedBehavior\Model">
+    <behavior name="relationismodifiedbehavior" />
+    
+    <table name="page" phpName="Page">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="title" type="varchar" required="true" primaryString="true" size="255" />
+        <column name="text" type="longvarchar" />
+    </table>
+
+    <table name="page_article" phpName="PageArticle" isCrossRef="true">
+        <column name="page_id" type="integer" required="true" primaryKey="true" />
+        <column name="article_id" type="integer" required="true" primaryKey="true" />
+        <foreign-key foreignTable="page" onDelete="cascade" onUpdate="cascade">
+            <reference local="page_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="article" onDelete="cascade" onUpdate="cascade">
+            <reference local="article_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+    <table name="article" phpName="Article">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="user_id" type="integer" required="false" />
+        <column name="date" type="timestamp" required="true" />
+        <column name="title" type="varchar" required="true" primaryString="true" size="255" />
+        <column name="text" type="longvarchar" />
+    </table>
+
+    <table name="comment" phpName="Comment">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="article_id" type="integer" required="true" />
+        <column name="date" type="timestamp" required="true" />
+        <column name="name" type="varchar" size="255" required="true" />
+        <column name="email" type="varchar" size="255" required="false" />
+        <column name="homepage" type="varchar" size="255" required="false" />
+        <column name="ip" type="varchar" size="15" required="true" />
+        <column name="browser" type="varchar" size="100" required="true" />
+        <column name="text" type="longvarchar" required="true" primaryString="true" />
+        <foreign-key foreignTable="article" onDelete="cascade" onUpdate="cascade">
+            <reference local="article_id" foreign="id" />
+        </foreign-key>
+    </table>
+<!--
+    <table name="bj_photo" phpName="Photo">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="model" type="varchar" size="100" required="true" />
+        <column name="model_id" type="integer" required="true" />
+        <column name="order" type="integer" required="true" default="0" />
+        <column name="photo" type="varchar" size="255" required="true" />
+        <column name="width" type="integer" required="true" />
+        <column name="height" type="integer" required="true" />
+        <column name="thumb" type="varchar" size="255" required="false" />
+        <column name="thumb_width" type="integer" required="false" />
+        <column name="thumb_height" type="integer" required="false" />
+    </table>
+-->
+
+</database>
