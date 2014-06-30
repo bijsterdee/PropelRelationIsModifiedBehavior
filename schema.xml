@@ -8,6 +8,14 @@
         <column name="text" type="longvarchar" />
     </table>
 
+    <table name="page_settings" phpName="PageSettings">
+        <column name="page_id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="articles_per_page" type="integer" required="true" default="20" />
+        <foreign-key foreignTable="page" onDelete="cascade" onUpdate="cascade">
+            <reference local="page_id" foreign="id" />
+        </foreign-key>
+    </table>
+
     <table name="page_article" phpName="PageArticle" isCrossRef="true">
         <column name="page_id" type="integer" required="true" primaryKey="true" />
         <column name="article_id" type="integer" required="true" primaryKey="true" />

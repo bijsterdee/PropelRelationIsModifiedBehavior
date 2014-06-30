@@ -6,6 +6,7 @@ use RelationIsModifiedBehavior\Model\Article;
 use RelationIsModifiedBehavior\Model\Comment;
 use RelationIsModifiedBehavior\Model\Page;
 use RelationIsModifiedBehavior\Model\PageArticle;
+use RelationIsModifiedBehavior\Model\PageSettings;
 
 
 class RelationIsModifiedBehaviorTest extends \PHPUnit_Framework_TestCase
@@ -33,16 +34,6 @@ class RelationIsModifiedBehaviorTest extends \PHPUnit_Framework_TestCase
 
     public function testCrossrefFk()
     {
-        $article = new Article();
-        $page = new Page();
-
-        $article->addPage($page);
-        $this->assertFalse($article->isModified());
-        $this->assertTrue($article->isModified(true));
-    }
-
-    public function testCrossrefFkFromCrossrefTable()
-    {
         $page = new Page();
         $page_article = new PageArticle();
 
@@ -50,5 +41,16 @@ class RelationIsModifiedBehaviorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($page_article->isModified());
         $this->assertTrue($page_article->isModified(true));
+    }
+
+    public function testSingleFk()
+    {
+        $page = new Page();
+        $page_settings = new PageSettings();
+
+        $page->setPageSettings($page_settings);
+
+        $this->assertFalse($page->isModified());
+        $this->assertTrue($page->isModified(true));
     }
 }
